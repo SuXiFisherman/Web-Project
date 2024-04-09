@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Posts</title>
+    <link rel="stylesheet" href="posts.css">
+    <link rel="stylesheet" href="../style.css">
+    <script>
+      function fetchItems() {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', 'upload.php', true);
+        xhr.onreadystatechange = function() {
+          if (xhr.readyState === 4 && xhr.status === 200) {
+            var response = JSON.parse(xhr.responseText);
+            var postList = document.getElementsByClassName('post-list')[0];
+            postList.innerHTML = '';
+            response.forEach(function(post) {
+              var img = document.createElement("img");
+              img.src = post.imageSrc;
+              var postDiv = document.createElement("div");
+              postDiv.classList.add("post-content");
+              var postCardDiv = document.createElement("div");
+              postCardDiv.classList.add("post-card");
+              var h3 = document.createElement("h3");
+              h3.textContent = post.title;
+              var postMeta = document.createElement("p");
+              postMeta.classList.add("post-meta");
+              postMeta.textContent = "Posted by " + post.author + " on " + post.time;
+              var p = document.createElement("p");
+              p.textContent = post.content;
+              postDiv.appendChild(h3);
+              postDiv.appendChild(postMeta);
+              postDiv.appendChild(p);
+              postCardDiv.appendChild(img)
+              postCardDiv.appendChild(postDiv)
+              postList.appendChild(postCardDiv)
+            });
+          }
+        };
+        xhr.send();
+      }
+      fetchItems()
+    </script>
+</head>
+<body>
+    <header>
+        <h1>GatherUp</h1>
+        <nav>
+            <ul class="navbar">
+                <li ><a href="../Homepage/homepage.html">Home</a></li>
+                <li class="active"><a href="../Posts/posts.html" >Posts</a></li>
+                <li><a href="../Settings/settings.html">Settings</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Posts</h2>
+    
+        <div class="post-list">
+          <!-- <div class="post-card">
+            <img src="mountain.jpeg" alt="Post 1">
+            <div class="post-content">
+              <h3>Join me and climb Lantau Island</h3>
+              <p class="post-meta">Posted by John Doe on Apr 1, 2024</p>
+              <p>There are 3 of us now, starting at 10am and expected to finish at 5pm</p>
+            </div>
+          </div>
+    
+          <div class="post-card">
+            <img src="football.jpeg" alt="Post 2">
+            <div class="post-content">
+              <h3>Let's play football!</h3>
+              <p class="post-meta">Posted by Jane Smith on Mar 3, 2024</p>
+              <p>Let's play football in PolyU.</p>
+            </div>
+          </div>
+    
+          <div class="post-card">
+            <img src="swimming.jpeg" alt="Post 3">
+            <div class="post-content">
+              <h3>Let's swim</h3>
+              <p class="post-meta">Posted by Mike Johnson on June 25, 2020</p>
+              <p>Let's swimming in PolyU.</p>
+            </div>
+          </div> -->
+        </div>
+        <button class="svg-button" onclick="javascript:window.location.href='create_post.html'"></button>
+      </main>
+    
+      <footer>
+        <p>&copy; 2024 GatherUp. All rights reserved.</p>
+      </footer>
+</body>
+</html>
